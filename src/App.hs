@@ -13,6 +13,7 @@ convertContent configs content =
     where
         convert conf = uncurry replace conf content
 
+convertContents :: [String] -> String -> IO String
 convertContents configs = 
     return . unlines . map (convertContent confs) . lines
     where
@@ -30,8 +31,13 @@ convertFile configs path = do
         writeFile (path ++ ".fixed.txt") newContent
 
         putStrLn "Done :)"
-    else
-        error "404 - File not found"
+    else do
+        putStrLn $ "404 - File not found: " ++ path
+        idk <- getChar
+        putStrLn "Bye"
+
+        error "404"
+
 
 
 main :: IO ()
@@ -48,12 +54,6 @@ main = do
     else do
         -- Argument Mode
         sequence_ (map (convertFile config) args)
-
-
-    -- if doesFileExist file then
-
-
-    -- let content = unlines' . insertCC .  dropInvalidLines . lines $
 
 
     putStrLn $ "Now have fun subtitling!\n"
