@@ -6,6 +6,7 @@ module Replacer
 
 replace :: Eq a => [a] -> [a] -> [a] -> [a]
 replace _ _ [] = []
+replace [] _ x = x
 replace pattern supplement list@(x:xs) = 
     if head pattern == x then
         if listBegins pattern list then

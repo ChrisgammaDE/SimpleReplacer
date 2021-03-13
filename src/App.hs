@@ -9,9 +9,9 @@ import Replacer
 
 convertContent :: [(String, String)] -> String -> String
 convertContent configs content =
-        foldl (\acc cur -> convert cur) "" configs
+        foldl (\acc cur -> convert cur acc) content configs
     where
-        convert conf = uncurry replace conf content
+        convert conf str = uncurry replace conf str
 
 convertContents :: [String] -> String -> IO String
 convertContents configs = 
@@ -37,7 +37,6 @@ convertFile configs path = do
         putStrLn "Bye"
 
         error "404"
-
 
 
 main :: IO ()
@@ -104,4 +103,5 @@ defMappings =
     [ "Hello->Hallo"
     , "World->Welt"
     , " I -> i "
+    , ""
     ]
